@@ -3,12 +3,20 @@ import './FlagCard.css'
 
 function FlagCard({ country, onOpen }) {
   return (
-    <Card  onClick={onOpen}>
+    <Card
+      onClick={onOpen}
+      style={{
+        cursor: "pointer",
+        transition: "transform 0.2s",
+      }}
+      className="flag-card"
+    >
       <Image
         src={country.flag}
         alt={`Flag of ${country.name}`}
-        style={{ height: "200px" }}
+        style={{ height: "200px"}}
       />
+     
     </Card>
   );
 }

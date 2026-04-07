@@ -1,0 +1,198 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test-backend:
+    name: Backend Tests (.NET 9)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj
+
+      - name: Run backend tests
+        run: dotnet test ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj \
+          --no-restore \
+          --configuration Release \
+          --verbosity normal \
+          --logger "trx;LogFileName=backend-test-results.trx"
+
+      - name: Upload backend test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: "**/*.trx"
+
+  test-frontend:
+    name: Frontend Tests (Vitest)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: countriesapplication.client/package-lock.json
+
+      - name: Install dependencies
+        working-directory: countriesapplication.client
+        run: npm ci
+
+      - name: Run frontend tests
+        working-directory: countriesapplication.client
+        run: npm test -- --run --reporter=verbose --include "src/components/tests/**/*.test.jsx"
+
+      - name: Upload frontend test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-test-results
+          path: countriesapplication.client/test-results/
+
+  build-backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    needs: test-backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore ./CountriesApplication.Server/CountriesApplication.Server.csproj
+
+      - name: Build
+        run: dotnet build ./CountriesApplication.Server/CountriesApplication.Server.csproj \
+          --no-restore \
+          --configuration Release
+
+      - name: Publish
+        run: dotnet publish ./CountriesApplication.Server/CountriesApplication.Server.csproj \
+          --no-restore \
+          --configuration Release \
+          --output ./publish \
+          /p:UseAppHost=false
+
+      - name: Upload publish artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-publish
+          path: ./publish
+
+  build-frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    needs: test-frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: countriesapplication.client/package-lock.json
+
+      - name: Install dependencies
+        working-directory: countriesapplication.client
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: countriesapplication.client
+        env:
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
+        run: npm run build
+
+      - name: Upload frontend dist artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: countriesapplication.client/dist/
+
+  package:
+    name: Build & Push Docker Images
+    runs-on: ubuntu-latest
+    needs: [ build-backend, build-frontend ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (backend)
+        id: meta-backend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/backend
+          tags: |
+            type=sha,prefix=sha-
+            type=raw,value=latest
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: CountriesApplication.Server/Dockerfile
+          push: true
+          tags: ${{ steps.meta-backend.outputs.tags }}
+          labels: ${{ steps.meta-backend.outputs.labels }}
+
+      - name: Extract metadata (frontend)
+        id: meta-frontend
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend
+          tags: |
+            type=sha,prefix=sha-
+            type=raw,value=latest
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./countriesapplication.client
+          file: countriesapplication.client/Dockerfile
+          push: true
+          tags: ${{ steps.meta-frontend.outputs.tags }}
+          build-args: |
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+          labels: ${{ steps.meta-frontend.outputs.labels }}

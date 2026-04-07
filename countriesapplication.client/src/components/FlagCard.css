@@ -1,5 +1,9 @@
-.ui.cards > .card, 
-.ui.card {
-  box-shadow: none !important;
-  border: none !important; /* Optional: Semantic UI uses shadow to mimic borders */
+.flag-card:hover, .flag-card-details:hover {
+  transform: scale(1.05);
+}
+
+body {
+  margin: 0;
+  /* padding: 20px; */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "semantic-ui-react";
+import { Card, Image } from "semantic-ui-react";
 import { getCountryByName } from "../api/countryApi";
 import LoadingComponent from "./LoadingComponent.jsx";
 
@@ -29,13 +29,43 @@ function FlagCardDetails({ country, onClose }) {
   if (error) return <p>{error}</p>;
 
   return (
-    <Card onClick={onClose} style={{ height: '200px' }}>
+    <Card
+      onClick={onClose}
+      style={{
+        height: "200px",
+        cursor: "pointer",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "10px",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
+        transition: "transform 0.2s",
+      }}
+      className="flag-card-details"
+    >
       <Card.Content>
-        <Card.Header>{countryDetails.name}</Card.Header>
+        <Card.Header
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+          }}
+        >
+          <Image
+            src={country.flag}
+            style={{ width: "30px", height: "20px", objectFit: "cover" }}
+          />
+          {countryDetails.name}
+        </Card.Header>
         <Card.Description>
-          Population : {countryDetails.population}
+          <strong>Population:</strong>{" "}
+          {countryDetails.population.toLocaleString()}
         </Card.Description>
-        <Card.Description>Capital : {countryDetails.capital}</Card.Description>
+        <Card.Description>
+          <strong>Capital:</strong> {countryDetails.capital}
+        </Card.Description>
       </Card.Content>
     </Card>
   );
