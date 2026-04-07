@@ -1,10 +1,10 @@
-﻿using CountriesApplication.Server.Models.External;
+﻿using CountriesApplication.Server.Clients.Interfaces;
+using CountriesApplication.Server.Models.External;
 using Newtonsoft.Json;
-using System.Xml.Linq;
 
 namespace CountriesApplication.Server.Clients
 {
-    public class RestCountriesAPIClient
+    public class RestCountriesAPIClient : IRestCountriesAPIClient
     {
         private readonly HttpClient _httpClient;
 

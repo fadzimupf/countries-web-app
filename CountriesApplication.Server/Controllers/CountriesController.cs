@@ -17,24 +17,23 @@ namespace CountriesApplication.Server.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(List<Country>), StatusCodes.Status200OK)]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var countries =  _countryService.GetAll();
+            var countries =  await _countryService.GetAllAsync();
             return Ok(countries);
         }
 
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(CountryDetails), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetByName(string name)
+        public async Task<IActionResult> GetByName(string name)
         {
-            var country = _countryService.GetByName(name);
+            var country = await _countryService.GetByNameAsync(name);
             
             if (country is null)
                 return NotFound();
 
             return Ok(country);
         }
-
     }
 }

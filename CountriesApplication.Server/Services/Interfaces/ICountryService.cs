@@ -4,7 +4,7 @@ namespace CountriesApplication.Server.Services.Interfaces
 {
     public interface ICountryService
     {
-        List<Country> GetAll();
-        CountryDetails GetByName(string name);
+        Task<List<Country>> GetAllAsync();
+        Task<CountryDetails> GetByNameAsync(string name);
     }
 }
