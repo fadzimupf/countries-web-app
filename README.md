@@ -7,17 +7,13 @@ Ensure the following are installed on your machine before getting started:
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Environment Setup
-Create a .env file at the root of the project and add the following values (these can also be copied from `.env.example`):
+Create a .env file at the root of the project and add the following values (you can also copy the `.env.example` file and rename it to .env):
 
 ```env
 VITE_API_URL=http://localhost:8080
-# Port the API will be accessible on from your host machine
 API_PORT=5000
-# Port the web frontend will be accessible on from your host machine
 WEB_PORT=3000
-# ASP.NET Core environment (Development | Staging | Production)
 ASPNETCORE_ENVIRONMENT=Development
-# The origin URL of the frontend, used for CORS configuration on the API
 WEB_ORIGIN=http://localhost:3000
 ```
 
