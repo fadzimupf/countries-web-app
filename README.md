@@ -1,5 +1,5 @@
 # Countries Application
-- A full-stack application consisting of a .NET API backend (`CountriesApplication.Server`) and a Vite-powered frontend client (`countriesapplication.client`), with Docker Compose.
+A full-stack application consisting of a .NET API backend (`CountriesApplication.Server`) and a Vite-powered frontend client (`countriesapplication.client`), with Docker Compose.
 
 ## Prerequisites
 Ensure the following are installed on your machine before getting started:
