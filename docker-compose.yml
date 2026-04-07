@@ -1,0 +1,26 @@
+version: '3.8'
+
+name: countries-application
+
+services:
+  countries-api:
+    build:
+      context: .
+      dockerfile: CountriesApplication.Server/Dockerfile
+    ports:
+      - "${API_PORT}:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_URLS=http://+:8080
+      - WEB_ORIGIN=${WEB_ORIGIN}
+    container_name: countries-api
+
+  countries-web:
+    build:
+      context: ./countriesapplication.client
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:${API_PORT}
+    ports:
+      - "${WEB_PORT}:80"
+    container_name: countries-web
