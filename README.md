@@ -10,6 +10,7 @@ Ensure the following are installed on your machine before getting started:
 Create a .env file at the root of the project and add the following values (these can also be copied from `.env.example`):
 
 ```env
+VITE_API_URL=http://localhost:8080
 # Port the API will be accessible on from your host machine
 API_PORT=5000
 # Port the web frontend will be accessible on from your host machine
