@@ -27,12 +27,8 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj
 
-      - name: Run backend tests
-        run: dotnet test ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj \
-          --no-restore \
-          --configuration Release \
-          --verbosity normal \
-          --logger "trx;LogFileName=backend-test-results.trx"
+     - name: Run backend tests
+        run: dotnet test ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj --no-restore --configuration Release --verbosity normal --logger "trx;LogFileName=backend-test-results.trx"
 
       - name: Upload backend test results
         uses: actions/upload-artifact@v4
@@ -62,7 +58,7 @@ jobs:
 
       - name: Run frontend tests
         working-directory: countriesapplication.client
-        run: npm test -- --run --reporter=verbose --include "src/components/tests/**/*.test.jsx"
+        run: npm test -- --run --reporter=verbose "src/components/tests/**/*.test.jsx"
 
       - name: Upload frontend test results
         uses: actions/upload-artifact@v4
@@ -86,8 +82,8 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./CountriesApplication.Server/CountriesApplication.Server.csproj
-
+        run: dotnet restore ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj
+      
       - name: Build
         run: dotnet build ./CountriesApplication.Server/CountriesApplication.Server.csproj \
           --no-restore \
