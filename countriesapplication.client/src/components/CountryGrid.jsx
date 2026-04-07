@@ -4,24 +4,24 @@ import { useState } from "react";
 import FlagCardDetails from "./FlagCardDetails";
 
 function CountryGrid({ countries }) {
-  const [activeCountryId, setActiveCountryId] = useState(null);
+  const [activeCountry, setActiveCountry] = useState(null);
 
   return (
     <Grid columns={8} doubling stackable>
       {countries.map((country) => {
-        const isDetailed = activeCountryId === country.name;
+        const isDetailed = activeCountry === country.name;
 
         return (
           <Grid.Column key={country.name}>
             {isDetailed ? (
               <FlagCardDetails
                 country={country}
-                onClose={() => setActiveCountryId(null)}
+                onClose={() => setActiveCountry(null)}
               />
             ) : (
               <FlagCard
                 country={country}
-                onOpen={() => setActiveCountryId(country.name)}
+                onOpen={() => setActiveCountry(country.name)}
               />
             )}
           </Grid.Column>

@@ -12,4 +12,9 @@ export default defineConfig({
      build: {
         cssMinify: false,
     },
+    test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: "./src/setupTests.js",
+  },
 });
