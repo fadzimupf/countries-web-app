@@ -1,12 +1,13 @@
 import { Card, Image } from "semantic-ui-react";
+import './FlagCard.css'
 
 function FlagCard({ country, onOpen }) {
   return (
-    <Card fluid onClick={onOpen}>
+    <Card  onClick={onOpen}>
       <Image
         src={country.flag}
         alt={`Flag of ${country.name}`}
-        style={{ width: "100%", height: "auto" }}
+        style={{ height: "200px" }}
       />
     </Card>
   );

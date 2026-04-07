@@ -29,7 +29,7 @@ function FlagCardDetails({ country, onClose }) {
   if (error) return <p>{error}</p>;
 
   return (
-    <Card fluid onClick={onClose}>
+    <Card onClick={onClose} style={{ height: '200px' }}>
       <Card.Content>
         <Card.Header>{countryDetails.name}</Card.Header>
         <Card.Description>

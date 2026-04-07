@@ -1,9 +1,7 @@
 ﻿using CountriesApplication.Server.Clients.Interfaces;
-using CountriesApplication.Server.Models;
 using CountriesApplication.Server.Models.External;
 using CountriesApplication.Server.Services;
 using Moq;
-using Xunit;
 
 namespace CountriesApplication.Tests
 {
@@ -26,14 +24,14 @@ namespace CountriesApplication.Tests
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Republic of Zimbabwe" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/zw.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/zw.svg" },
                     Population = 15000000,
                     Capital = new List<string> { "Harare" }
                 },
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Republic of Angola" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/ao.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/ao.svg" },
                     Population = 33000000,
                     Capital = new List<string> { "Luanda" }
                 }
@@ -55,7 +53,7 @@ namespace CountriesApplication.Tests
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "South Africa" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/za.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/za.svg" },
                     Population = 60000000,
                     Capital = new List<string> { "Pretoria" }
                 }
@@ -85,7 +83,7 @@ namespace CountriesApplication.Tests
             var restCountry = new RestCountry
             {
                 Name = new RestCountryName { Official = "Federal Republic of Germany" },
-                Flags = new RestCountryFlag { Svg = "https://flags.example.com/de.svg" },
+                Flags = new RestCountryFlag { Png = "https://flags.example.com/de.svg" },
                 Population = 83000000,
                 Capital = new List<string> { "Berlin" }
             };
@@ -106,7 +104,7 @@ namespace CountriesApplication.Tests
             var restCountry = new RestCountry
             {
                 Name = new RestCountryName { Official = "Republic of South Africa" },
-                Flags = new RestCountryFlag { Svg = "https://flags.example.com/za.svg" },
+                Flags = new RestCountryFlag { Png = "https://flags.example.com/za.svg" },
                 Population = 60000000,
                 Capital = new List<string> { "Pretoria", "Cape Town", "Bloemfontein" }
             };
@@ -123,7 +121,7 @@ namespace CountriesApplication.Tests
             var restCountry = new RestCountry
             {
                 Name = new RestCountryName { Official = "Some Country" },
-                Flags = new RestCountryFlag { Svg = "https://flags.example.com/xx.svg" },
+                Flags = new RestCountryFlag { Png = "https://flags.example.com/xx.svg" },
                 Population = 5000,
                 Capital = new List<string>()
             };
@@ -140,7 +138,7 @@ namespace CountriesApplication.Tests
             var restCountry = new RestCountry
             {
                 Name = new RestCountryName { Official = "France" },
-                Flags = new RestCountryFlag { Svg = "https://flags.example.com/fr.svg" },
+                Flags = new RestCountryFlag { Png = "https://flags.example.com/fr.svg" },
                 Population = 68000000,
                 Capital = new List<string> { "Paris" }
             };

@@ -1,12 +1,10 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Text;
 using CountriesApplication.Server.Clients;
 using CountriesApplication.Server.Models.External;
 using Moq;
 using Moq.Protected;
 using Newtonsoft.Json;
-using Xunit;
 
 namespace CountriesApplication.Tests
 {
@@ -41,7 +39,7 @@ namespace CountriesApplication.Tests
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Republic of South Africa" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/za.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/za.svg" },
                     Population = 60000000,
                     Capital = new List<string> { "Pretoria" }
                 }
@@ -86,7 +84,7 @@ namespace CountriesApplication.Tests
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Federal Republic of Germany" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/de.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/de.svg" },
                     Population = 83000000,
                     Capital = new List<string> { "Berlin" }
                 }
@@ -128,14 +126,14 @@ namespace CountriesApplication.Tests
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Country One" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/one.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/one.svg" },
                     Population = 1000,
                     Capital = new List<string> { "Capital One" }
                 },
                 new RestCountry
                 {
                     Name = new RestCountryName { Official = "Country Two" },
-                    Flags = new RestCountryFlag { Svg = "https://flags.example.com/two.svg" },
+                    Flags = new RestCountryFlag { Png = "https://flags.example.com/two.svg" },
                     Population = 2000,
                     Capital = new List<string> { "Capital Two" }
                 }

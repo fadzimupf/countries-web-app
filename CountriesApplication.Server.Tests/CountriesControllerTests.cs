@@ -4,7 +4,6 @@ using CountriesApplication.Server.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Xunit;
 
 namespace CountriesApplication.Tests
 {

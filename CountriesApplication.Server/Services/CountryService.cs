@@ -1,5 +1,4 @@
-﻿using CountriesApplication.Server.Clients;
-using CountriesApplication.Server.Clients.Interfaces;
+﻿using CountriesApplication.Server.Clients.Interfaces;
 using CountriesApplication.Server.Models;
 using CountriesApplication.Server.Services.Interfaces;
 
@@ -21,7 +20,7 @@ namespace CountriesApplication.Server.Services
             return restCountries.Select(c => new Country
             {
                 Name = c.Name.Official,
-                Flag = c.Flags.Svg
+                Flag = c.Flags.Png
             }).OrderBy(country => country.Name).ToList();
         }
 
@@ -34,7 +33,7 @@ namespace CountriesApplication.Server.Services
                 Name = country.Name.Official,
                 Population = country.Population,
                 Capital = country.Capital.FirstOrDefault() ?? string.Empty,
-                Flag = country.Flags.Svg
+                Flag = country.Flags.Png
             };
         }
     }

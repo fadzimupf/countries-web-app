@@ -1,0 +1,5 @@
+.ui.cards > .card, 
+.ui.card {
+  box-shadow: none !important;
+  border: none !important; /* Optional: Semantic UI uses shadow to mimic borders */
+}

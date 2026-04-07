@@ -7,7 +7,7 @@ function CountryGrid({ countries }) {
   const [activeCountry, setActiveCountry] = useState(null);
 
   return (
-    <Grid columns={8} doubling stackable>
+    <Grid columns={5} doubling stackable>
       {countries.map((country) => {
         const isDetailed = activeCountry === country.name;
 
