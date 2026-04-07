@@ -166,6 +166,7 @@ jobs:
           push: true
           tags: ${{ steps.meta-backend.outputs.tags }}
           labels: ${{ steps.meta-backend.outputs.labels }}
+          provenance: false
 
       - name: Extract metadata (frontend)
         id: meta-frontend
@@ -186,3 +187,4 @@ jobs:
           build-args: |
             VITE_API_URL=http://localhost:8080
           labels: ${{ steps.meta-frontend.outputs.labels }}
+          provenance: false
