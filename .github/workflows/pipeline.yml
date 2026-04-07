@@ -27,7 +27,7 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj
 
-     - name: Run backend tests
+      - name: Run backend tests
         run: dotnet test ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj --no-restore --configuration Release --verbosity normal --logger "trx;LogFileName=backend-test-results.trx"
 
       - name: Upload backend test results
@@ -82,19 +82,13 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./CountriesApplication.Server.Tests/CountriesApplication.Server.Tests.csproj
-      
+        run: dotnet restore ./CountriesApplication.Server/CountriesApplication.Server.csproj
+
       - name: Build
-        run: dotnet build ./CountriesApplication.Server/CountriesApplication.Server.csproj \
-          --no-restore \
-          --configuration Release
+        run: dotnet build ./CountriesApplication.Server/CountriesApplication.Server.csproj --no-restore --configuration Release
 
       - name: Publish
-        run: dotnet publish ./CountriesApplication.Server/CountriesApplication.Server.csproj \
-          --no-restore \
-          --configuration Release \
-          --output ./publish \
-          /p:UseAppHost=false
+        run: dotnet publish ./CountriesApplication.Server/CountriesApplication.Server.csproj --no-restore --configuration Release --output ./publish /p:UseAppHost=false
 
       - name: Upload publish artifact
         uses: actions/upload-artifact@v4
@@ -138,7 +132,7 @@ jobs:
     name: Build & Push Docker Images
     runs-on: ubuntu-latest
     needs: [ build-backend, build-frontend ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
 
     permissions:
       contents: read
