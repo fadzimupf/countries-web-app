@@ -129,7 +129,7 @@ jobs:
       - name: Build frontend
         working-directory: countriesapplication.client
         env:
-          VITE_API_URL: ${{ vars.VITE_API_URL }}
+          VITE_API_URL: http://localhost:8080
         run: npm run build
 
       - name: Upload frontend dist artifact
@@ -194,5 +194,5 @@ jobs:
           push: true
           tags: ${{ steps.meta-frontend.outputs.tags }}
           build-args: |
-            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_API_URL=http://localhost:8080
           labels: ${{ steps.meta-frontend.outputs.labels }}
