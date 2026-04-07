@@ -9,6 +9,11 @@ vi.mock("../LoadingComponent", () => ({
   default: ({ text }) => <div data-testid="loading">{`Loading ${text}...`}</div>,
 }));
 
+const originalToLocaleString = Number.prototype.toLocaleString;
+vi.spyOn(Number.prototype, 'toLocaleString').mockImplementation(function (locale = 'en-US', options) {
+    return originalToLocaleString.call(this, locale, options);
+  });
+
 const mockCountry = { name: "South Africa", flag: "https://flagcdn.com/za.svg" };
 
 const mockDetails = {
@@ -37,7 +42,7 @@ describe("FlagCardDetails", () => {
       expect(screen.getByText("South Africa")).toBeInTheDocument();
     });
 
-    expect(screen.getByText(/60 000 000/)).toBeInTheDocument();
+    expect(screen.getByText(/60,000,000/)).toBeInTheDocument();
     expect(screen.getByText(/Pretoria/)).toBeInTheDocument();
   });
 
