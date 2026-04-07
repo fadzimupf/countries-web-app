@@ -23,7 +23,7 @@ describe("FlagCardDetails", () => {
   });
 
   it("shows loading state initially", () => {
-    countryApi.getCountryByName.mockReturnValue(new Promise(() => {})); // never resolves
+    countryApi.getCountryByName.mockReturnValue(new Promise(() => {})); 
     render(<FlagCardDetails country={mockCountry} onClose={vi.fn()} />);
     expect(screen.getByTestId("loading")).toBeInTheDocument();
     expect(screen.getByText("Loading country...")).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe("FlagCardDetails", () => {
       expect(screen.getByText("South Africa")).toBeInTheDocument();
     });
 
-    expect(screen.getByText(/60000000/)).toBeInTheDocument();
+    expect(screen.getByText(/60 000 000/)).toBeInTheDocument();
     expect(screen.getByText(/Pretoria/)).toBeInTheDocument();
   });
 
