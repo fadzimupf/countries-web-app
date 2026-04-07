@@ -11,7 +11,6 @@ namespace CountriesApplication.Server.Extensions
         {
             services.AddScoped<ICountryService, CountryService>();
 
-            //TODO: Make this an env variable.
             services.AddHttpClient<IRestCountriesAPIClient, RestCountriesAPIClient>(client =>
             {
                 client.BaseAddress = new Uri("https://restcountries.com/v3.1/");
