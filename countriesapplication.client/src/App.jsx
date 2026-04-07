@@ -1,10 +1,10 @@
-import WeatherForecast from './components/WeatherForecast/WeatherForecast';
-import './App.css';
+import CountryIndexContainer from './components/CountryIndexContainer';
+// import './App.css';
 
 function App() {
     return (
         <>
-            <WeatherForecast />
+            <CountryIndexContainer />
         </>
     );
 }

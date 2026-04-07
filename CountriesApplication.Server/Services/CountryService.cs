@@ -22,7 +22,7 @@ namespace CountriesApplication.Server.Services
             {
                 Name = c.Name.Official,
                 Flag = c.Flags.Svg
-            }).ToList();
+            }).OrderBy(country => country.Name).ToList();
         }
 
         public async Task<CountryDetails> GetByNameAsync(string name)
