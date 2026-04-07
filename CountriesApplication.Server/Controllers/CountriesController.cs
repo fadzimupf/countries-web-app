@@ -25,7 +25,6 @@ namespace CountriesApplication.Server.Controllers
 
         [HttpGet("{name}")]
         [ProducesResponseType(typeof(CountryDetails), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByName(string name)
         {
             var country = await _countryService.GetByNameAsync(name);
