@@ -30,10 +30,10 @@ namespace CountriesApplication.Server.Services
 
             return new CountryDetails
             {
-                Name = country.Name.Official,
-                Population = country.Population,
-                Capital = country.Capital.FirstOrDefault() ?? string.Empty,
-                Flag = country.Flags.Png
+                Name = country?.Name?.Official ?? string.Empty,
+                Population = country?.Population ?? 0,
+                Capital = country?.Capital?.FirstOrDefault() ?? string.Empty,
+                Flag = country?.Flags?.Png ?? string.Empty
             };
         }
     }
