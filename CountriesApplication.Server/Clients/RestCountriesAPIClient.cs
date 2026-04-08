@@ -20,7 +20,7 @@ namespace CountriesApplication.Server.Clients
             return JsonConvert.DeserializeObject<List<RestCountry>>(response) ?? [];
         }
 
-        public async Task<RestCountry> GetByNameAsync(string name)
+        public async Task<RestCountry?> GetByNameAsync(string name)
         {
             var response = await _httpClient.GetAsync($"name/{name}");
 

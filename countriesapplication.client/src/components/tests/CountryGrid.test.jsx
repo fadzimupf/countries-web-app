@@ -34,7 +34,9 @@ describe("CountryGrid", () => {
 
   it("renders nothing when countries array is empty", () => {
     const { container } = render(<CountryGrid countries={[]} />);
-    expect(container.querySelectorAll('[data-testid^="flag-card-"]')).toHaveLength(0);
+    expect(
+      container.querySelectorAll('[data-testid^="flag-card-"]'),
+    ).toHaveLength(0);
   });
 
   it("shows FlagCardDetails when a country is clicked", () => {
@@ -51,7 +53,9 @@ describe("CountryGrid", () => {
 
     fireEvent.click(screen.getByTestId("flag-details-South Africa"));
     expect(screen.getByTestId("flag-card-South Africa")).toBeInTheDocument();
-    expect(screen.queryByTestId("flag-details-South Africa")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("flag-details-South Africa"),
+    ).not.toBeInTheDocument();
   });
 
   it("only shows details for the clicked country, not others", () => {
@@ -72,6 +76,8 @@ describe("CountryGrid", () => {
     fireEvent.click(screen.getByTestId("flag-details-South Africa")); // close
     fireEvent.click(screen.getByTestId("flag-card-Germany")); // open another
     expect(screen.getByTestId("flag-details-Germany")).toBeInTheDocument();
-    expect(screen.queryByTestId("flag-details-South Africa")).not.toBeInTheDocument();
+    expect(
+      screen.queryByTestId("flag-details-South Africa"),
+    ).not.toBeInTheDocument();
   });
 });

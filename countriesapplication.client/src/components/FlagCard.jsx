@@ -4,7 +4,7 @@ import "./FlagCard.css";
 function FlagCard({ country, onOpen }) {
   return (
     <Card onClick={onOpen} className="flag-card">
-     <Image
+      <Image
         src={country.flag}
         alt={`Flag of ${country.name}`}
         className="flag-card-image"

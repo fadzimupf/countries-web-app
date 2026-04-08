@@ -3,15 +3,14 @@ import FlagCard from "./FlagCard";
 import { useState } from "react";
 import FlagCardDetails from "./FlagCardDetails";
 import "./CountryGrid.css";
- 
+
 function CountryGrid({ countries }) {
   const [activeCountry, setActiveCountry] = useState(null);
- 
+
   return (
     <div className="grid-wrapper">
       <Grid columns={5} doubling stackable className="country-grid">
-        {countries
-        .map((country) => {
+        {countries.map((country) => {
           const isDetailed = activeCountry === country.name;
           return (
             <Grid.Column key={country.name}>
@@ -33,5 +32,5 @@ function CountryGrid({ countries }) {
     </div>
   );
 }
- 
+
 export default CountryGrid;

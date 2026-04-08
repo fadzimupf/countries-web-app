@@ -23,12 +23,16 @@ describe("FlagCard", () => {
   it("calls onOpen when clicked", () => {
     const onOpen = vi.fn();
     render(<FlagCard country={mockCountry} onOpen={onOpen} />);
-    fireEvent.click(screen.getByAltText("Flag of South Africa").closest(".card"));
+    fireEvent.click(
+      screen.getByAltText("Flag of South Africa").closest(".card"),
+    );
     expect(onOpen).toHaveBeenCalledTimes(1);
   });
 
   it("renders a Card component", () => {
-    const { container } = render(<FlagCard country={mockCountry} onOpen={vi.fn()} />);
+    const { container } = render(
+      <FlagCard country={mockCountry} onOpen={vi.fn()} />,
+    );
     expect(container.querySelector(".card")).toBeInTheDocument();
   });
 });

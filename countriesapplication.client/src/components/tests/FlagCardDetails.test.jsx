@@ -6,15 +6,23 @@ import * as countryApi from "../../api/countryApi";
 vi.mock("../../api/countryApi");
 
 vi.mock("../LoadingComponent", () => ({
-  default: ({ text }) => <div data-testid="loading">{`Loading ${text}...`}</div>,
+  default: ({ text }) => (
+    <div data-testid="loading">{`Loading ${text}...`}</div>
+  ),
 }));
 
 const originalToLocaleString = Number.prototype.toLocaleString;
-vi.spyOn(Number.prototype, 'toLocaleString').mockImplementation(function (locale = 'en-US', options) {
-    return originalToLocaleString.call(this, locale, options);
-  });
+vi.spyOn(Number.prototype, "toLocaleString").mockImplementation(function (
+  locale = "en-US",
+  options,
+) {
+  return originalToLocaleString.call(this, locale, options);
+});
 
-const mockCountry = { name: "South Africa", flag: "https://flagcdn.com/za.svg" };
+const mockCountry = {
+  name: "South Africa",
+  flag: "https://flagcdn.com/za.svg",
+};
 
 const mockDetails = {
   name: "South Africa",
@@ -28,7 +36,7 @@ describe("FlagCardDetails", () => {
   });
 
   it("shows loading state initially", () => {
-    countryApi.getCountryByName.mockReturnValue(new Promise(() => {})); 
+    countryApi.getCountryByName.mockReturnValue(new Promise(() => {}));
     render(<FlagCardDetails country={mockCountry} onClose={vi.fn()} />);
     expect(screen.getByTestId("loading")).toBeInTheDocument();
     expect(screen.getByText("Loading country...")).toBeInTheDocument();
@@ -68,12 +76,16 @@ describe("FlagCardDetails", () => {
   it("re-fetches when country name changes", async () => {
     countryApi.getCountryByName.mockResolvedValue({ data: mockDetails });
     const { rerender } = render(
-      <FlagCardDetails country={mockCountry} onClose={vi.fn()} />
+      <FlagCardDetails country={mockCountry} onClose={vi.fn()} />,
     );
     await waitFor(() => screen.getByText("South Africa"));
 
     const newCountry = { name: "Germany" };
-    const newDetails = { name: "Germany", population: 83000000, capital: "Berlin" };
+    const newDetails = {
+      name: "Germany",
+      population: 83000000,
+      capital: "Berlin",
+    };
     countryApi.getCountryByName.mockResolvedValue({ data: newDetails });
 
     rerender(<FlagCardDetails country={newCountry} onClose={vi.fn()} />);
