@@ -148,5 +148,15 @@ namespace CountriesApplication.Tests
 
             _mockClient.Verify(c => c.GetByNameAsync("france"), Times.Once);
         }
+
+        [Fact]
+        public async Task GetByNameAsync_ReturnsNull_WhenCountryNotFound()
+        {
+            _mockClient.Setup(c => c.GetByNameAsync("unknown")).ReturnsAsync((RestCountry?)null);
+
+            var result = await _service.GetByNameAsync("unknown");
+
+            Assert.Null(result);
+        }
     }
 }

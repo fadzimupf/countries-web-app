@@ -24,16 +24,19 @@ namespace CountriesApplication.Server.Services
             }).OrderBy(country => country.Name).ToList();
         }
 
-        public async Task<CountryDetails> GetByNameAsync(string name)
+        public async Task<CountryDetails?> GetByNameAsync(string name)
         {
             var country = await _restCountriesClient.GetByNameAsync(name);
 
+            if (country is null)
+                return null;
+
             return new CountryDetails
             {
-                Name = country?.Name?.Official ?? string.Empty,
-                Population = country?.Population ?? 0,
-                Capital = country?.Capital?.FirstOrDefault() ?? string.Empty,
-                Flag = country?.Flags?.Png ?? string.Empty
+                Name = country.Name?.Official ?? string.Empty,
+                Population = country.Population,
+                Capital = country.Capital?.FirstOrDefault() ?? string.Empty,
+                Flag = country.Flags?.Png ?? string.Empty
             };
         }
     }
