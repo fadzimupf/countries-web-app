@@ -11,7 +11,7 @@ Create a .env file at the root of the project and add the following values (you 
 
 ```env
 VITE_API_URL=http://localhost:8080
-API_PORT=5000
+API_PORT=8080
 WEB_PORT=3000
 ASPNETCORE_ENVIRONMENT=Development
 WEB_ORIGIN=http://localhost:3000
