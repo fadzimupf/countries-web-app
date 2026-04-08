@@ -35,7 +35,7 @@ This will:
   - http://localhost:8080/Countries
 - Navigate to `http://localhost:8080/openapi/v1.json` to access the web api openapi documentation
 
-### 4. Stop the application
+### 3. Stop the application
 ```bash
 docker compose down
 ```
