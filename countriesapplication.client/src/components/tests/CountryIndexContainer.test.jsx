@@ -41,7 +41,7 @@ describe("CountryIndexContainer", () => {
     render(<CountryIndexContainer />);
     expect(screen.getByText("🌍 Know Your Flags")).toBeInTheDocument();
     expect(
-      screen.getByText("Click on a flag to explore country details"),
+      screen.getByText("Click on a flag to explore country details."),
     ).toBeInTheDocument();
   });
 
@@ -71,7 +71,7 @@ describe("CountryIndexContainer", () => {
     render(<CountryIndexContainer />);
 
     await waitFor(() => {
-      expect(screen.getByText("Failed to load countries")).toBeInTheDocument();
+      expect(screen.getByText("Failed to load countries.")).toBeInTheDocument();
     });
 
     expect(screen.getByText("Failed to load countries.")).toBeInTheDocument();
