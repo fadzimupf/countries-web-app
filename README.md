@@ -30,7 +30,7 @@ This will:
 
 ### 2. Access the application
 - Navigate to `http://localhost:3000` to access the web application
-- Navigate to `http://localhost:8080` to access the web api. See the following examples:
+- Navigate to `http://localhost:8080` to access the web api. See the following examples to test out in Bruno:
   - http://localhost:8080/Countries/Peru
   - http://localhost:8080/Countries
 - Navigate to `http://localhost:8080/openapi/v1.json` to access the web api openapi documentation
