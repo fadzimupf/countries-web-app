@@ -1,9 +1,18 @@
-.flag-card:hover, .flag-card-details:hover {
+.flag-card:hover,
+.flag-card-details:hover {
   transform: scale(1.05);
 }
 
 body {
   margin: 0;
-  /* padding: 20px; */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flag-card {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.flag-card-image {
+  height: 200px !important;
 }

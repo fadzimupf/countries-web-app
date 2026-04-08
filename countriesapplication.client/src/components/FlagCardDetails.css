@@ -1,0 +1,24 @@
+.flag-card-details {
+  height: 200px;
+  cursor: pointer;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  transition: transform 0.2s;
+}
+
+.flag-card-details-header {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.flag-card-details-flag {
+  width: 30px !important;
+  height: 20px !important;
+  object-fit: cover;
+}

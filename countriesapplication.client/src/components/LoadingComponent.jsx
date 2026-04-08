@@ -1,9 +1,6 @@
-import {
-  Loader,
-  Segment,
-} from "semantic-ui-react";
+import { Loader, Segment } from "semantic-ui-react";
 
-function LoadingComponent({text}) {
+function LoadingComponent({ text }) {
   return (
     <Segment basic textAlign="center" style={{ minHeight: 200 }}>
       <Loader active inline="centered" size="large">

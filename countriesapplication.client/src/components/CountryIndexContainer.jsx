@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { getCountries } from "../api/countryApi";
-import {
-  Message,
-  Icon,
-  Header,
-  Segment,
-} from "semantic-ui-react";
+import { Message, Icon, Header, Segment } from "semantic-ui-react";
 import LoadingComponent from "./LoadingComponent.jsx";
 import CountryGrid from "./CountryGrid.jsx";
 
@@ -36,27 +31,22 @@ function CountryIndexContainer() {
       <Header as="h1" textAlign="center" dividing>
         🌍 Know Your Flags
         <Header.Subheader>
-          Click on a flag to explore country details
+          Click on a flag to explore country details.
         </Header.Subheader>
       </Header>
 
-      {loading && (
-          <LoadingComponent text="countries" />
-      )}
+      {loading && <LoadingComponent text="countries" />}
 
       {error && (
         <Message negative icon>
           <Icon name="warning circle" />
           <Message.Content>
-            <Message.Header>Failed to load countries</Message.Header>
-            {error}
+            <Message.Header>{error}</Message.Header>
           </Message.Content>
         </Message>
       )}
 
-      {!loading && !error && (
-          <CountryGrid countries={countries} />
-      )}
+      {!loading && !error && <CountryGrid countries={countries} />}
     </Segment>
   );
 }

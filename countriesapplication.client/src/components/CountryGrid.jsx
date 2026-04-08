@@ -1,18 +1,18 @@
-import { Grid, Container } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import FlagCard from "./FlagCard";
 import { useState } from "react";
 import FlagCardDetails from "./FlagCardDetails";
-import './CountryGrid.css'
-
+import "./CountryGrid.css";
+ 
 function CountryGrid({ countries }) {
   const [activeCountry, setActiveCountry] = useState(null);
-
+ 
   return (
     <div className="grid-wrapper">
-      <Grid columns={5} doubling stackable style={{ margin: 0 }}>
-        {countries.map((country) => {
+      <Grid columns={5} doubling stackable className="country-grid">
+        {countries
+        .map((country) => {
           const isDetailed = activeCountry === country.name;
-
           return (
             <Grid.Column key={country.name}>
               {isDetailed ? (
@@ -30,8 +30,8 @@ function CountryGrid({ countries }) {
           );
         })}
       </Grid>
-     </div>
+    </div>
   );
 }
-
+ 
 export default CountryGrid;

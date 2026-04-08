@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Card, Image } from "semantic-ui-react";
+import { Card, Image, Message, Icon } from "semantic-ui-react";
 import { getCountryByName } from "../api/countryApi";
 import LoadingComponent from "./LoadingComponent.jsx";
+import "./FlagCardDetails.css";
 
 function FlagCardDetails({ country, onClose }) {
   const [countryDetails, setCountryDetails] = useState();
@@ -21,51 +22,45 @@ function FlagCardDetails({ country, onClose }) {
         setLoading(false);
       }
     }
-
     fetchData();
   }, [country.name]);
 
   if (loading) return <LoadingComponent text="country" />;
-  if (error) return <p>{error}</p>;
+  if (error)
+    return (
+      <Message negative icon>
+        <Icon name="warning circle" />
+        <Message.Content>
+          <Message.Header>{error}</Message.Header>
+        </Message.Content>
+      </Message>
+    );
+
+  const hasPopulation =
+    countryDetails.population != null && countryDetails.population !== 0;
+  const hasCapital =
+    countryDetails.capital != null && countryDetails.capital !== "";
 
   return (
-    <Card
-      onClick={onClose}
-      style={{
-        height: "200px",
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "10px",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-        transition: "transform 0.2s",
-      }}
-      className="flag-card-details"
-    >
+    <Card onClick={onClose} className="flag-card-details">
       <Card.Content>
-        <Card.Header
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "8px",
-          }}
-        >
-          <Image
-            src={country.flag}
-            style={{ width: "30px", height: "20px", objectFit: "cover" }}
-          />
+        <Card.Header className="flag-card-details-header">
+          <Image src={country.flag} className="flag-card-details-flag" />
           {countryDetails.name}
         </Card.Header>
-        <Card.Description>
-          <strong>Population:</strong>{" "}
-          {countryDetails.population.toLocaleString()}
-        </Card.Description>
-        <Card.Description>
-          <strong>Capital:</strong> {countryDetails.capital}
-        </Card.Description>
+
+        {hasPopulation && (
+          <Card.Description>
+            <strong>Population:</strong>{" "}
+            {countryDetails.population.toLocaleString()}
+          </Card.Description>
+        )}
+
+        {hasCapital && (
+          <Card.Description>
+            <strong>Capital:</strong> {countryDetails.capital}
+          </Card.Description>
+        )}
       </Card.Content>
     </Card>
   );
